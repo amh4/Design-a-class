@@ -8,7 +8,7 @@ RSpec.describe GrammarStats do
 
   it "returns false if there is no punctuation" do
     text = GrammarStats.new
-    expect(text.check("No cap")).to eq false
+    expect(text.check("No punc")).to eq false
   end
 
   it "returns true if sentence is correct" do
@@ -20,4 +20,16 @@ RSpec.describe GrammarStats do
     text = GrammarStats.new
     expect {text.check("")}.to raise_error "Not a sentence."
   end
+
+  it "returns how many sentences have passed as %" do
+    text = GrammarStats.new
+    text.check("First good.")
+    text.check("Second good.")
+    text.check("Second good.")
+    text.check("Second good.")
+    text.check("first bad")
+    text.check("second bad")
+    expect(text.percentage_good).to eq 67
+  end
+  
 end
