@@ -31,5 +31,14 @@ RSpec.describe GrammarStats do
     text.check("second bad")
     expect(text.percentage_good).to eq 67
   end
+
+  it "returns how many sentences have passed as %, 2nd test" do
+    text = GrammarStats.new
+    text.check("Second good.")
+    text.check("Second good.")
+    text.check("first bad")
+    text.check("second bad")
+    expect(text.percentage_good).to eq 50
+  end
   
 end

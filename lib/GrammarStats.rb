@@ -1,8 +1,7 @@
 class GrammarStats
   def initialize
-
-    @passed_sentences = []
-    @failed_sentences = []
+    @passed_sentences = 0
+    @failed_sentences = 0
   end
 
   def check(sentence) 
@@ -10,22 +9,17 @@ class GrammarStats
     has_caps = sentence[0] == sentence[0].upcase
     last_char = [".", "!", "?"].include? sentence[-1]
   
-    if has_caps != true
-      @failed_sentences << sentence
-      return false
-    elsif last_char != true
-      @failed_sentences << sentence
+    if has_caps != true || last_char != true
+      @failed_sentences += 1
       return false
     else
-      @passed_sentences << sentence
+      @passed_sentences += 1
       return true
     end
   end
 
   def percentage_good
-    failed = @failed_sentences.length
-    passed = @passed_sentences.length
-    percent_int = passed / (failed + passed).to_f
-    return percent_int.round(2) * 100
+    percent = @passed_sentences / (@failed_sentences + @passed_sentences).to_f
+    return percent.round(2) * 100
   end
 end
